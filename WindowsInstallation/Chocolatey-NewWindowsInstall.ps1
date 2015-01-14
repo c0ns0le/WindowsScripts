@@ -18,9 +18,10 @@ choco install autohotkey
 choco install cpu-z
 choco install hwmonitor
 choco install git
+choco install svn
 choco install firefox
 choco install googlechrome
-choco install vlc
+choco install vcl
 choco install sublimetext3
 choco install winscp
 choco install greenshot
