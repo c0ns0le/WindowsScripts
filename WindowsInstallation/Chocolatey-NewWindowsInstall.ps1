@@ -1,4 +1,7 @@
- #Download Chocolatey
+# Script for new installations of Windows by Jason DiBabbo (jason.dibabbo@outlook.com)
+# Purpose: To automate downloading as many developer tools and programs as possible.
+
+#Download Chocolatey
 echo "========================================="
 echo "Downloading Chocolatey Package Manager"
 echo "========================================="
