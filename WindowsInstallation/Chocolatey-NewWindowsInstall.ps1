@@ -40,3 +40,9 @@ choco install expresso
 choco install ccleaner
 choco install skype
 choco install teamviewer
+
+#Patch Ruby 2.2.2
+echo "========================================="
+echo "Patching RubyGems for Ruby v2.2.2"
+echo "========================================="
+..\Patching\RubyGems-2.2.3-Patch.ps1
