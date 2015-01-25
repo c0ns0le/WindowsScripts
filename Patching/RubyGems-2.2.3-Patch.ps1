@@ -6,6 +6,16 @@
 # Step 4: Navigate into extracted directory
 # Step 5: Run 'ruby setup.rb'
 
+function Write-Good($message)
+{
+    Write-Host $message -ForegroundColor Green -BackgroundColor Black
+}
+
+function Write-Bad($message)
+{
+    Write-Host "ERROR: $message" -ForegroundColor Red -BackgroundColor Black
+}
+
 function UserIsAdministrator()
 {
     $identity  = [System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -34,14 +44,17 @@ function Expand-ZipFile($file, $destination)
     # If the file in question doesn't exist, quit early
     if (!(Test-Path $file))
     {
-        echo "Designated compressed file was not found. Quitting extraction."
+        Write-Bad "Designated compressed file was not found. Quitting extraction."
         return
     }
 
     Unblock-File $file
-    $helper = New-Object -ComObject Shell.Application
-    $files = $helper.NameSpace($file).Items()
-    $helper.NameSpace($destination).CopyHere($files)
+    $shell = New-Object -ComObject Shell.Application
+    $zip = $shell.NameSpace($file)
+    foreach ($item in $zip.Items())
+    {
+        $shell.NameSpace($destination).CopyHere($item)
+    }
 }
 
 function Download-File($url, $filename, $destination)
@@ -67,39 +80,47 @@ function Download-File($url, $filename, $destination)
         
         echo "Downloading $filename from $url..."
         $webclient.DownloadFile($url, "$destination\$filename")
-        echo "Download successful!"
+        Write-Good "Download successful!"
     }
     catch
     {
-        echo "There was an error downloading the file at the specified url."
+        Write-Bad "There was an error downloading the file at the specified url."
     }
 }
 
 if (UserIsAdministrator)
 {
-    $destination = "C:\Temp\"
+    $destination = "C:\Temp"
     $url = "https://github.com/rubygems/rubygems/releases/download/v2.2.3/rubygems-2.2.3.zip"
     $filename = GetFileNameFromUrl -url $url
+    $fullpath = "$destination\$filename"
+    $newdirectory = "$destination\" + $filename.Substring(0, $filename.IndexOf('.zip'))
     Download-File -url $url -filename $filename -destination $destination
 
-    if (Test-Path "$destination\$filename")
+    if (Test-Path $fullpath)
     {
         echo "Extracting contents of zip file..."
-        Expand-ZipFile -file $filename -destination $destination
-        echo "Extraction complete!"
-        cd $destination;
-        $newdirectoryname = $filename.Substring(0, $filename.IndexOf(".zip"))
+        Expand-ZipFile -file $fullpath -destination $destination
+        if (Test-Path $newdirectory)
+        {
+            Write-Good "Extraction complete!"
+            cd $newdirectory;
+            echo "Beginning update process..."
+            ruby setup.rb
+            Write-Good "Patch process complete!"
+        }
+        else
+        {
+            Write-Bad "There was an error while extracting the files specified. Aborting patch process."
+        }
         
-        cd $newdirectoryname;
-        echo "Beginning update process..."
-        ruby setup.rb
     }
     else
     {
-        echo "Patching process aborted."
+        Write-Bad "Something went wrong while downloading the file specified. Aborting patch process."
     }
 }
 else
 {
-    echo "To patch RubyGems, this script needs to be run in an Administrator console. Aborting."
+    Write-Bad "To patch RubyGems, this script needs to be run in an Administrator console. Aborting."
 }
