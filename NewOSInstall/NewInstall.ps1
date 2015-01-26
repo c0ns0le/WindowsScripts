@@ -45,3 +45,11 @@ echo "========================================="
 echo "Patching RubyGems for Ruby v2.2.2"
 echo "========================================="
 ..\Patching\RubyGems-2.2.3-Patch.ps1
+
+#Set the Powershell Profile, because why not?
+echo "========================================="
+echo "Setting up Powershell Profile"
+echo "========================================="
+New-Item -Path $Profile -Type File -Force
+$ProfileLocation = $Profile.Substring(0, $Profile.LastIndexOf("\") + 1)
+cp ..\Microsoft.PowerShell_profile.ps1 $ProfileLocation
