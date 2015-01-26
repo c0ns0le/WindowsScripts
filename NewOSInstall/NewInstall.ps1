@@ -23,7 +23,7 @@ choco install hwmonitor
 choco install svn
 choco install firefox
 choco install googlechrome
-choco install vcl
+choco install vlc
 choco install sublimetext3
 choco install winscp
 choco install greenshot
@@ -35,10 +35,12 @@ choco install atom
 choco install eclipse
 choco install ffmpeg
 choco install youtube-dl
-choco install expresso
 choco install ccleaner
 choco install skype
 choco install teamviewer
+
+echo "Refreshing environment PATH variables..."
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
 
 #Patch Ruby 2.2.2
 echo "========================================="
