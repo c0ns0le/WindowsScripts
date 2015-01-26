@@ -20,7 +20,6 @@ choco install 7zip
 choco install autohotkey
 choco install cpu-z
 choco install hwmonitor
-choco install git
 choco install svn
 choco install firefox
 choco install googlechrome
