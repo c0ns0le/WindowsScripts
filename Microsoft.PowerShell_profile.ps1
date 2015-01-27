@@ -10,3 +10,13 @@ echo "
 
 Set-Alias l ls
 Set-Alias c cls
+
+function Get-UserName()
+{
+    return [Environment]::UserName
+}
+
+function Get-CurrentPath()
+{
+    return (Get-Item -Path ".").FullName
+}
