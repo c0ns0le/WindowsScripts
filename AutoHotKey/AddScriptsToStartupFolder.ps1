@@ -11,7 +11,8 @@ function Write-Good($message)
     Write-Host $message -ForegroundColor Green -BackgroundColor Black
 }
 
-$startupFolder = "C:\Users\Jason\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
+$username = [Environment]::UserName
+$startupFolder = "C:\Users\$username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 $currentDirectory = Get-Location
 $cwd = $currentDirectory.Path
 $shell = New-Object -ComObject WScript.Shell
