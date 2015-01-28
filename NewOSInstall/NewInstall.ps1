@@ -1,6 +1,9 @@
 # Script for new installations of Windows by Jason DiBabbo (jason.dibabbo@outlook.com)
 # Purpose: To automate downloading as many developer tools and programs as possible.
 
+#Save the path location of where the install script is
+$cwd = (Get-Item -Path ".").FullName
+
 #Download Chocolatey
 echo "========================================="
 echo "Downloading Chocolatey Package Manager"
@@ -47,6 +50,9 @@ echo "========================================="
 echo "Patching RubyGems for Ruby v2.2.2"
 echo "========================================="
 ..\Patching\RubyGems-2.2.3-Patch.ps1
+
+#Go back to the installation script directory
+cd $cwd
 
 #Set the Powershell Profile
 echo "========================================="
