@@ -20,3 +20,8 @@ function Get-CurrentPath()
 {
     return (Get-Item -Path ".").FullName
 }
+
+function Update-Path()
+{
+	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+}
