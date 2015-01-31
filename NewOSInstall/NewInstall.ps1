@@ -41,6 +41,7 @@ choco install youtube-dl
 choco install ccleaner
 choco install skype
 choco install teamviewer
+choco install notepadplusplus
 
 echo "Refreshing environment PATH variables..."
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
