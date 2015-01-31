@@ -29,3 +29,8 @@ function Is-Admin()
 
     $principal.IsInRole( [System.Security.Principal.WindowsBuiltInRole]::Administrator )
 }
+
+function Update-Path()
+{
+	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+}
