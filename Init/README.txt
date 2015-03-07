@@ -1,5 +1,3 @@
-To successfully run the scripts in the folder in the intended order, right click the "SetExecutionPolicy.bat" script and click "Run As Administrator".
+Click "Setup.bat" to start a script that will automatically install your desired chocolatey packages, set up your powershell profile, and move your AHK scripts to the startup folder. 
 
-In order to set the Execution Policy of Powershell, the user needs to run the command in an elevated console.
-
-The Setup.bat script will set the execution policy, and then you (the user) must open an Administrator PowerShell session and begin running the NewInstall.ps1 script.
+The programs.txt file is a plain text file with each line containing the name of a chocolatey package EXACTLY the way it's described on chocolatey.org. If it says "choco install python", then the file needs to say python on a line. Add to this file as you see fit, or point to a new one with the Install-Packages.ps1 file (see source). 
