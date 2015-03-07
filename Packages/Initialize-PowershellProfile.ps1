@@ -1,4 +1,14 @@
-﻿[CmdletBinding()]
+﻿##########################################################
+# Author: Jason DiBabbo (jason.dibabbo@outlook.com)
+#
+# File Name: Initialize-PowershellProfile.ps1
+#
+# Description: A script to automate the generation of a 
+# powershell profile. It then copies the profile in this
+# repository to replace the new one.
+##########################################################
+
+[CmdletBinding()]
 param()
 
 function Write-VerboseTimeStamped($message)

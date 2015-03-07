@@ -85,11 +85,8 @@ function Refresh-EnvironmentVariables
 function Patch-RubyGems
 {
     Write-VerboseTimeStamped "Patching RubyGems 2.2.2 to 2.2.3..."
-    ..\Patching\RubyGems-2.2.3-Patch.ps1
+    ..\Patches\Patch-RubyGems-2.2.3.ps1
 }
-
-#Save the path location of where the install script is
-$cwd = (Get-Item -Path ".").FullName
 
 if ($InstallChocolatey)
 {
@@ -101,11 +98,4 @@ Install-ChocolateyPackages
 if ($FixRuby)
 {
     Patch-RubyGems
-    cd $cwd
 }
-
-#Update the Latest AutoHotKey Scripts to run on startup
-#echo "========================================="
-#echo "Setting up AutoHotKey Script Automation"
-#echo "========================================="
-#..\AutoHotKey\AddScriptsToStartupFolder.ps1

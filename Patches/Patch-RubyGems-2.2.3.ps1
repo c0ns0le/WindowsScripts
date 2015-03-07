@@ -1,10 +1,20 @@
-# Patch for RubyGems 2.2.2 by Jason DiBabbo (jason.dibabbo@outlook.com)
+##########################################################
+# Author: Jason DiBabbo (jason.dibabbo@outlook.com)
+#
+# File Name: Patch-RubyGems-2.2.3.ps1
+#
+# Description: A script to automate the patching of an
+# issue found in RubyGems 2.2.2.
+##########################################################
 
-# Step 1: Check if the user is in an admin console. If yes, continue. If no, quit.
-# Step 2: Download zip file from https://github.com/rubygems/rubygems/releases/download/v2.2.3/rubygems-2.2.3.zip
-# Step 3: Extract zip file into directory
-# Step 4: Navigate into extracted directory
-# Step 5: Run 'ruby setup.rb'
+[CmdletBinding()]
+param()
+
+function Write-VerboseTimeStamped($message)
+{
+    $timeStamp = Get-Date -Format "dd-MM-yyyy HH:mm:ss"
+    Write-Verbose "$timeStamp -- $message"
+}
 
 function Write-Good($message)
 {
@@ -37,14 +47,14 @@ function Expand-ZipFile($file, $destination)
     # If the directory we want to unzip into doesn't exist, create it
     if (!(Test-Path $destination))
     {
-        echo "Directory was not found. Creating desired destination directory."
+        Write-VerboseTimeStamped "Directory was not found. Creating desired destination directory."
         mkdir $destination;
     }
 
     # If the file in question doesn't exist, quit early
     if (!(Test-Path $file))
     {
-        Write-Bad "Designated compressed file was not found. Quitting extraction."
+        Write-VerboseTimeStamped "Designated compressed file was not found. Quitting extraction."
         return
     }
 
@@ -62,15 +72,14 @@ function Download-File($url, $filename, $destination)
     # If the directory we want to unzip into doesn't exist, create it
     if (!(Test-Path $destination))
     {
-        echo "Directory was not found. Creating desired destination directory."
+        Write-VerboseTimeStamped "Directory was not found. Creating desired destination directory."
         mkdir $destination;
-        echo ""
     }
 
     # If the file we want to download already exists, then just act like we've already downloaded it
     if (Test-Path "$destination\$filename")
     {
-        echo "File already exists. Aborting download."
+        Write-VerboseTimeStamped "File already exists. Aborting download."
         return
     }
 
@@ -78,13 +87,14 @@ function Download-File($url, $filename, $destination)
     {
         $webclient = New-Object System.Net.WebClient
         
-        echo "Downloading $filename from $url..."
+        
+        Write-VerboseTimeStamped "Downloading $filename from $url..."
         $webclient.DownloadFile($url, "$destination\$filename")
-        Write-Good "Download successful!"
+        Write-VerboseTimeStamped "Download successful!"
     }
     catch
     {
-        Write-Bad "There was an error downloading the file at the specified url."
+        Write-VerboseTimeStamped "There was an error downloading the file at the specified url."
     }
 }
 
@@ -99,28 +109,28 @@ if (UserIsAdministrator)
 
     if (Test-Path $fullpath)
     {
-        echo "Extracting contents of zip file..."
+        Write-VerboseTimeStamped "Extracting contents of zip file..."
         Expand-ZipFile -file $fullpath -destination $destination
         if (Test-Path $newdirectory)
         {
-            Write-Good "Extraction complete!"
+            Write-VerboseTimeStamped "Extraction complete!"
             cd $newdirectory;
-            echo "Beginning update process..."
-            ruby setup.rb
-            Write-Good "Patch process complete!"
+            Write-VerboseTimeStamped "Beginning update process..."
+            ruby setup.rb | Out-Null
+            Write-VerboseTimeStamped "Patch process complete!"
         }
         else
         {
-            Write-Bad "There was an error while extracting the files specified. Aborting patch process."
+            Write-VerboseTimeStamped "There was an error while extracting the files specified. Aborting patch process."
         }
         
     }
     else
     {
-        Write-Bad "Something went wrong while downloading the file specified. Aborting patch process."
+        Write-VerboseTimeStamped "Something went wrong while downloading the file specified. Aborting patch process."
     }
 }
 else
 {
-    Write-Bad "To patch RubyGems, this script needs to be run in an Administrator console. Aborting."
+    Write-VerboseTimeStamped "To patch RubyGems, this script needs to be run in an Administrator console. Aborting."
 }
