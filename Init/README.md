@@ -1,5 +1,5 @@
 # Initialization Directory 
-This is the directory for initializing a new installation of Windows with programs and packages from various web sources and the Windows Package Manager Chocolatey (<https://chocolatey.org/>). 
+This is the directory for initializing a new installation of Windows with programs and packages from various web sources and the Windows Package Manager Chocolatey (<https://chocolatey.org/>). Also here are some scripts for automatically generating a powershell profile and syncing it with the one in this repository, as well as placing shortcuts to my AutoHotKeys scripts in the startup folder.  
 
 ## Changing the packages to be installed
 To change the list of packages downloaded from Chocolatey, modify the "Packages.txt" file, or create your own. 
