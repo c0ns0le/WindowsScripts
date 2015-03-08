@@ -16,32 +16,7 @@ param(
     [bool] $FixRuby = $false
 )
 
-function Write-VerboseTimeStamped($message)
-{
-    $timeStamp = Get-Date -Format "dd-MM-yyyy HH:mm:ss"
-    Write-Verbose "$timeStamp -- $message"
-}
-
-function ChocolateyPackage-Exists($packageName)
-{
-    $packages = Invoke-Expression "Chocolatey search $packageName"
-    if ($packages -eq "No packages found.")
-    {
-        Write-VerboseTimeStamped "$packageName DOES NOT exist in repositories."
-        return $false;
-    }
-    else
-    {
-        Write-VerboseTimeStamped "$packageName DOES exist in repositories."
-        return $true;
-    }
-}
-
-function Install-Chocolatey
-{
-    Write-VerboseTimeStamped "Installing Chocolatey..."
-    iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-}
+. .\ChocolateyUtilities.ps1
 
 function Install-ChocolateyPackages
 {
@@ -66,26 +41,6 @@ function Install-ChocolateyPackages
             Write-VerboseTimeStamped "Skipping $package..."
         }
     }
-}
-
-function Install-ChocolateyPackage($packageName)
-{
-    Write-VerboseTimeStamped "Installing $packageName"
-    Invoke-Expression "Choco install $packageName" | Out-Null
-    if ($LASTEXITCODE -eq 0)
-    {
-        Write-VerboseTimeStamped "Successfully installed $packageName!"
-    }
-    else
-    {
-        Write-VerboseTimeStamped "Failed to install $packageName :-("
-    }
-}
-
-function Refresh-EnvironmentVariables
-{
-    Write-VerboseTimeStamped "Refreshing environment variables..."
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
 }
 
 function Patch-RubyGems

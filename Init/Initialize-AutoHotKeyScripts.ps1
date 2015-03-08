@@ -20,11 +20,7 @@ $startupFolder = "C:\Users\$username\AppData\Roaming\Microsoft\Windows\Start Men
 $shell = New-Object -ComObject WScript.Shell
 $scriptDirectory = [System.IO.Path]::GetFullPath((Join-Path (pwd) '..\AutoHotKey'))
 
-function Write-VerboseTimeStamped($message)
-{
-    $timeStamp = Get-Date -Format "dd-MM-yyyy HH:mm:ss"
-    Write-Verbose "$timeStamp -- $message"
-}
+. .\LoggingUtilities.ps1
 
 function Initialize-AutoHotKeyScripts
 {

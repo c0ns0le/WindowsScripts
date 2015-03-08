@@ -11,11 +11,7 @@
 [CmdletBinding()]
 param()
 
-function Write-VerboseTimeStamped($message)
-{
-    $timeStamp = Get-Date -Format "dd-MM-yyyy HH:mm:ss"
-    Write-Verbose "$timeStamp -- $message"
-}
+. .\LoggingUtilities.ps1
 
 function Initialize-PowershellProfile
 {

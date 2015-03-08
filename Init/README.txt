@@ -1,3 +1,0 @@
-Click "Setup.bat" to start a script that will automatically install your desired chocolatey packages, set up your powershell profile, and move your AHK scripts to the startup folder. 
-
-The programs.txt file is a plain text file with each line containing the name of a chocolatey package EXACTLY the way it's described on chocolatey.org. If it says "choco install python", then the file needs to say python on a line. Add to this file as you see fit, or point to a new one with the Install-Packages.ps1 file (see source). 
