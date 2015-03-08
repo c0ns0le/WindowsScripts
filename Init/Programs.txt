@@ -1,24 +1,17 @@
-python
-ruby
-jdk8
-strawberryperl
-nodejs
-7zip
-autohotkey
-svn
-firefox
-googlechrome
-vlc
-sublimetext3
-winscp
-putty
-fiddler4
-brackets
-atom
-eclipse
-ffmpeg
-youtube-dl
-ccleaner
-skype
-teamviewer
-notepadplusplus
+##########################################################
+# Author: Jason DiBabbo (jason.dibabbo@outlook.com)
+#
+# File Name: Programs.txt
+#
+# Description: A configuration file to indicate which
+# programs to download from the internet. This is for
+# downloading various '.exe' files that aren't available
+# for download/automated installation via package
+# managers like Chocolatey.
+#
+# Remarks: This file treats lines beginning with '#'
+# characters as comments.
+##########################################################
+
+# Installation for printer software
+http://ftp.hp.com/pub/softlib/software12/COL55963/mp-134720-2/EN7640_117.exe

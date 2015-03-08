@@ -1,0 +1,36 @@
+##########################################################
+# Author: Jason DiBabbo (jason.dibabbo@outlook.com)
+#
+# File Name: Packages.txt
+#
+# Description: A configuration file to indicate which
+# packages to download from Chocolatey.
+#
+# Remarks: This file treats lines beginning with '#'
+# characters as comments.
+##########################################################
+
+python
+ruby
+jdk8
+strawberryperl
+nodejs
+7zip
+autohotkey
+svn
+firefox
+googlechrome
+vlc
+sublimetext3
+winscp
+putty
+fiddler4
+brackets
+atom
+eclipse
+ffmpeg
+youtube-dl
+ccleaner
+skype
+teamviewer
+notepadplusplus

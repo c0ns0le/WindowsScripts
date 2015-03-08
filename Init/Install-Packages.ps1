@@ -50,6 +50,12 @@ function Install-ChocolateyPackages
 
     Foreach ($package in $packages)
     {
+        # Ignore comment lines and newlines
+        if ($package.StartsWith("#") -or $package.Length -eq 0)
+        {
+            continue;
+        }
+
         Write-VerboseTimeStamped "Checking if $package is available..."
         if (ChocolateyPackage-Exists($package))
         {

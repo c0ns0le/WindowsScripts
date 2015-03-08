@@ -100,7 +100,7 @@ function Download-File($url, $filename, $destination)
 
 if (UserIsAdministrator)
 {
-    $destination = "C:\Temp"
+    $destination = $env:TEMP
     $url = "https://github.com/rubygems/rubygems/releases/download/v2.2.3/rubygems-2.2.3.zip"
     $filename = GetFileNameFromUrl -url $url
     $fullpath = "$destination\$filename"
