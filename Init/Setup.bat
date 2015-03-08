@@ -49,3 +49,4 @@ if '%errorlevel%' NEQ '0' (
 @powershell -NoProfile -NoLogo -Command ".\Install-Packages.ps1 -PackagesFileName Programs.txt -InstallChocolatey $true -FixRuby $true -Verbose"
 @powershell -NoProfile -NoLogo -Command ".\Initialize-PowershellProfile.ps1 -Verbose"
 @powershell -NoProfile -NoLogo -Command ".\Initialize-AutoHotKeyScripts.ps1 -AutoHotKeyScriptsLocation ..\AutoHotKey -Verbose"
+@powershell -NoProfile -NoLogo -Command ".\Download-Programs.ps1 -Verbose -ProgramsFileName Programs.txt -DestinationDirectory C:\Temp"
