@@ -1,7 +1,7 @@
 ﻿##########################################################
 # Author: Jason DiBabbo (jason.dibabbo@outlook.com)
 #
-# File Name: LoggingUtilities.ps1
+# File Name: ChocolateyUtilities.ps1
 #
 # Description: A script containing functions for
 # installing packages with Chocolatey.

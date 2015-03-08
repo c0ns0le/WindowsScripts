@@ -10,21 +10,7 @@
 [CmdletBinding()]
 param()
 
-function Write-VerboseTimeStamped($message)
-{
-    $timeStamp = Get-Date -Format "dd-MM-yyyy HH:mm:ss"
-    Write-Verbose "$timeStamp -- $message"
-}
-
-function Write-Good($message)
-{
-    Write-Host $message -ForegroundColor Green -BackgroundColor Black
-}
-
-function Write-Bad($message)
-{
-    Write-Host "ERROR: $message" -ForegroundColor Red -BackgroundColor Black
-}
+. .\DownloadingUtilities.ps1
 
 function UserIsAdministrator()
 {
@@ -32,14 +18,6 @@ function UserIsAdministrator()
     $principal = New-Object System.Security.Principal.WindowsPrincipal( $identity )
 
     $principal.IsInRole( [System.Security.Principal.WindowsBuiltInRole]::Administrator )
-}
-
-function GetFileNameFromUrl($url)
-{
-    $urlPortions = $url.Split("/")
-    $filename = $urlPortions[$urlPortions.Count - 1]
-
-    return $filename;
 }
 
 function Expand-ZipFile($file, $destination)
@@ -64,37 +42,6 @@ function Expand-ZipFile($file, $destination)
     foreach ($item in $zip.Items())
     {
         $shell.NameSpace($destination).CopyHere($item)
-    }
-}
-
-function Download-File($url, $filename, $destination)
-{
-    # If the directory we want to unzip into doesn't exist, create it
-    if (!(Test-Path $destination))
-    {
-        Write-VerboseTimeStamped "Directory was not found. Creating desired destination directory."
-        mkdir $destination;
-    }
-
-    # If the file we want to download already exists, then just act like we've already downloaded it
-    if (Test-Path "$destination\$filename")
-    {
-        Write-VerboseTimeStamped "File already exists. Aborting download."
-        return
-    }
-
-    try
-    {
-        $webclient = New-Object System.Net.WebClient
-        
-        
-        Write-VerboseTimeStamped "Downloading $filename from $url..."
-        $webclient.DownloadFile($url, "$destination\$filename")
-        Write-VerboseTimeStamped "Download successful!"
-    }
-    catch
-    {
-        Write-VerboseTimeStamped "There was an error downloading the file at the specified url."
     }
 }
 
