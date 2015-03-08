@@ -46,7 +46,7 @@ function Install-ChocolateyPackages
 function Patch-RubyGems
 {
     Write-VerboseTimeStamped "Patching RubyGems 2.2.2 to 2.2.3..."
-    ..\Patches\Patch-RubyGems-2.2.3.ps1
+    .\Patch-RubyGems-2.2.3.ps1
 }
 
 if ($InstallChocolatey)
