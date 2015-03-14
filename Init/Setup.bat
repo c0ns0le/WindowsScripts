@@ -45,8 +45,9 @@ if '%errorlevel%' NEQ '0' (
 
 :: First (after getting admin permission), set the powershell execution policy so that I can execute scripts
 @powershell -NoProfile -NoLogo -Command "Set-ExecutionPolicy RemoteSigned -Force"
-
-@powershell -NoProfile -NoLogo -Command ".\Install-Packages.ps1 -PackagesFileName Programs.txt -InstallChocolatey $true -FixRuby $true -Verbose"
+@powershell -NoProfile -NoLogo -Command ".\CopyPowershellModules.ps1 -CustomPowerShellModulesLocation ..\PowershellModules"
+@powershell -NoProfile -NoLogo -Command ".\Install-Packages.ps1 -PackagesFileName Programs.txt -InstallChocolatey -Verbose"
+@powershell -NoProfile -NoLogo -Command ".\Patch-RubyGems-2.2.3.ps1 -Verbose"
 @powershell -NoProfile -NoLogo -Command ".\Initialize-PowershellProfile.ps1 -Verbose"
 @powershell -NoProfile -NoLogo -Command ".\Initialize-AutoHotKeyScripts.ps1 -AutoHotKeyScriptsLocation ..\AutoHotKey -Verbose"
 @powershell -NoProfile -NoLogo -Command ".\Download-Programs.ps1 -Verbose -ProgramsFileName Programs.txt -DestinationDirectory C:\Temp"
