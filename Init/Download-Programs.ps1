@@ -17,7 +17,7 @@ param(
     [string] $DestinationDirectory
 )
 
-. .\DownloadingUtilities.ps1
+Import-Module -Name FileDownloadUtilities
 
 function Download-Programs
 {
@@ -27,9 +27,9 @@ function Download-Programs
         return
     }
 
-    Write-VerboseTimeStamped "Loading $ProgramsFileName..."
+    Write-Verbose "Loading $ProgramsFileName..."
     $programs = Get-Content $ProgramsFileName
-    Write-VerboseTimeStamped "$ProgramsFileName loaded successfully!"
+    Write-Verbose "$ProgramsFileName loaded successfully!"
 
     Foreach($program in $programs)
     {
@@ -39,11 +39,12 @@ function Download-Programs
             continue;
         }
 
-        $fileName = GetFileNameFromUrl -url $program
-        Download-File -url $program -filename $fileName -destination $DestinationDirectory
+        $fileName = Get-FileNameFromUrl -url $program
+        Write-Verbose "Downloading $fileName!"
+        Request-FileFromUrl -url $program -fileName $fileName -destination $DestinationDirectory
     }
 
-    Write-VerboseTimeStamped "Program downloads complete!"
+    Write-Verbose "Program downloads complete!"
 }
 
 Download-Programs

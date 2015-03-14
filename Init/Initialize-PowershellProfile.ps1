@@ -11,15 +11,13 @@
 [CmdletBinding()]
 param()
 
-. .\LoggingUtilities.ps1
-
 function Initialize-PowershellProfile
 {
-    Write-VerboseTimeStamped "Initializing powershell profile..."
+    Write-Verbose "Initializing powershell profile..."
     New-Item -Path $Profile -Type File -Force | Out-Null
     $ProfileLocation = $Profile.Substring(0, $Profile.LastIndexOf("\") + 1)
     cp ..\Microsoft.PowerShell_profile.ps1 $ProfileLocation
-    Write-VerboseTimeStamped "Successfully initialized powershell profile!"
+    Write-Verbose "Successfully initialized powershell profile!"
 }
 
 Initialize-PowershellProfile

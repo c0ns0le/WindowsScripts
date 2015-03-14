@@ -20,30 +20,28 @@ $startupFolder = "C:\Users\$username\AppData\Roaming\Microsoft\Windows\Start Men
 $shell = New-Object -ComObject WScript.Shell
 $scriptDirectory = [System.IO.Path]::GetFullPath((Join-Path (pwd) '..\AutoHotKey'))
 
-. .\LoggingUtilities.ps1
-
 function Initialize-AutoHotKeyScripts
 {
-    Write-VerboseTimeStamped "Getting AutoHotKey scripts..."
+    Write-Verbose "Getting AutoHotKey scripts..."
     $scripts = (Get-Item $AutoHotKeyScriptsLocation\*.ahk).Name
-    Write-VerboseTimeStamped "Initializing AutoHotKey scripts..."
+    Write-Verbose "Initializing AutoHotKey scripts..."
     Foreach ($script in $scripts)
     {
         Create-ScriptShortcutsInStartup($script)
     }
 
-    Write-VerboseTimeStamped "AutoHotKey scripts successfully initialized!"
+    Write-Verbose "AutoHotKey scripts successfully initialized!"
 }
 
 function Create-ScriptShortcutsInStartup($scriptName)
 {
-    Write-VerboseTimeStamped "Creating shortcut for $scriptName in the startup folder..."
+    Write-Verbose "Creating shortcut for $scriptName in the startup folder..."
     $fileNameWithoutShortcut = $scriptName.Substring(0, $scriptName.IndexOf("."))
     $shortcut = $shell.CreateShortcut("$startupFolder\$fileNameWithoutShortcut.lnk")
     $shortcut.TargetPath = "$scriptDirectory\$scriptName"
     $shortcut.Description = "Launches an Auto Hot Keys Script"
     $shortcut.Save()
-    Write-VerboseTimeStamped "Shortcut for $scriptName successfully created!"
+    Write-Verbose "Shortcut for $scriptName successfully created!"
 }
 
 Initialize-AutoHotKeyScripts

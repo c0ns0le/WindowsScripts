@@ -12,15 +12,14 @@ param(
     [Parameter(Mandatory=$true)]
     [string] $PackagesFileName,
 
-    [bool] $InstallChocolatey = $false,
-    [bool] $FixRuby = $false
+    [switch] $InstallChocolatey
 )
 
-. .\ChocolateyUtilities.ps1
+Import-Module -Name ChocolateyUtilities
 
-function Install-ChocolateyPackages
+Function Install-ChocolateyPackages
 {
-    Write-VerboseTimeStamped "Loading $packagesFileName..."
+    Write-Verbose "Loading $packagesFileName..."
     $packages = Get-Content $PackagesFileName
 
     Foreach ($package in $packages)
@@ -31,22 +30,16 @@ function Install-ChocolateyPackages
             continue;
         }
 
-        Write-VerboseTimeStamped "Checking if $package is available..."
-        if (ChocolateyPackage-Exists($package))
+        Write-Verbose "Checking if $package is available..."
+        if (Get-ChocolateyPackageExists($package))
         {
             Install-ChocolateyPackage($package)
         }
         else
         {
-            Write-VerboseTimeStamped "Skipping $package..."
+            Write-Verbose "Skipping $package..."
         }
     }
-}
-
-function Patch-RubyGems
-{
-    Write-VerboseTimeStamped "Patching RubyGems 2.2.2 to 2.2.3..."
-    .\Patch-RubyGems-2.2.3.ps1
 }
 
 if ($InstallChocolatey)
@@ -55,8 +48,3 @@ if ($InstallChocolatey)
 }
 
 Install-ChocolateyPackages
-
-if ($FixRuby)
-{
-    Patch-RubyGems
-}

@@ -14,7 +14,6 @@ param(
     [string] $CustomPowerShellModulesLocation
 )
 
-
 $standardPowerShellModulesLocation = "$home\Documents\WindowsPowerShell\Modules"
 
 # If the public modules directory hasn't been created yet,
@@ -42,5 +41,3 @@ Foreach ($module in $myModules)
         Copy-Item -Path $CustomPowerShellModulesLocation\$module\$moduleFile -Destination $newModuleLocation
     }
 }
-#Get-ChildItem -Path $myModules | % { Copy-Item $_.FullName "$modulesLocation" -Recurse -Force }
-#Copy-Item $myModules\* $modulesLocation
