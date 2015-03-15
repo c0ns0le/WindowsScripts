@@ -15,3 +15,5 @@
 
 # Installation for printer software
 http://ftp.hp.com/pub/softlib/software12/COL55963/mp-134720-2/EN7640_117.exe
+
+http://media.steampowered.com/client/installer/SteamSetup.exe
