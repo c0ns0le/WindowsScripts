@@ -26,7 +26,6 @@ winscp
 putty
 fiddler4
 brackets
-atom
 eclipse
 ffmpeg
 youtube-dl
